@@ -11,6 +11,7 @@ Comments: pretty much just started working on the project. we still have a lot o
 
 some notable todo:
 >add a folder for all the pokemon classes
+>
 >add javadoc
 
 
