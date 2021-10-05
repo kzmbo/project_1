@@ -3,7 +3,6 @@ Comments: pretty much just started working on the project. we still have a lot o
 >added a main menu
 >>pretty basic. nothing much is going on.
 >>got the user's input and added it into the trainer object.
->
 >got started with the trainer class
 >
 >added ponyta
