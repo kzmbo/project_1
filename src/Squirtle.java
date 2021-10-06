@@ -1,5 +1,9 @@
 
-public class Squirtle implements Water{
+public class Squirtle extends Pokemon implements Water{
+	public Squirtle(String n) {
+		super(n);
+	}
+
 	public String watergun(Pokemon p) {
 		return "Water Gun attack!";
 	}

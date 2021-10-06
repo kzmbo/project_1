@@ -1,5 +1,8 @@
 public class Main {
     public static void main(String arg[]){
+        Trainer trainer;
+        Map map = new Map();
+
         System.out.println("Prof. Oak: Hello there new trainer!");
         System.out.println("What's your name?");
         String name = CheckInput.getString();
@@ -10,27 +13,44 @@ public class Main {
         System.out.println("2. Bulbasaur");
         System.out.println("3. Squirtle");
         int choice = CheckInput.getIntRange(1, 3);
-        String startingPokemon = "";
         switch (choice){
             case 1:
-                startingPokemon = "Charmander";
+                Charmander charmander = new Charmander("Charmander");
+                trainer = new Trainer(name, charmander, map);
+                mainMenu(charmander, trainer);
                 break;
             case 2:
-                startingPokemon = "Bulbasaur";
+//                Charmander charmander = new Charmander("Charmander");
+//                Map map = new Map();
+//                Trainer trainer = new Trainer(name, charmander, map);
+//                System.out.println(trainer.toString());
+//                mainMenu(charmander);
                 break;
             case 3:
-                startingPokemon = "Squirtle";
+                Squirtle squirtle = new Squirtle("Squirtle");
+                trainer = new Trainer(name, squirtle, map);
+                mainMenu(squirtle, trainer);
                 break;
         }
-
-        Map map = new Map();
-        Pokemon p = new Pokemon(startingPokemon);
-        Trainer trainer = new Trainer(name, new Pokemon(startingPokemon), map);
-        System.out.println(trainer.toString());
-        mainMenu();
     }
 
-    public static int mainMenu(){
+    public static int mainMenu(Pokemon p, Trainer t){
+        //testing if trainer.java works, keep it if u wanna know how it works, feel free to delete it.
+//        System.out.println(p.getName());
+//        System.out.println(t.toString());
+//        t.receivePokeBall();
+//        t.receiveMoney(100);
+//        t.receivePotion();
+//        System.out.println(t.hasPokeball());
+//        System.out.println(t.hasPotion());
+//        t.spendMoney(23);
+//        System.out.println(t.getMoney());
+//        t.usePotion(0);
+//        System.out.println(t.hasPotion());
+//        t.catchPokemon(p);
+//        System.out.println(t.getPokemonList());
+//        System.out.println(t.getNumPokemon());
+
         boolean isGameRunning = true;
         while(isGameRunning){
             System.out.println("--map--");
