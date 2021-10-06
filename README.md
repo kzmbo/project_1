@@ -1,3 +1,5 @@
+Guide to Git: https://docs.google.com/document/d/1zx3Cfnt1U-jiPo7edJEiUllWrXbOMd9SYl6znRjD-zE/edit?usp=sharing
+
 v0.1.0 log
 >Trainer.java is nearly completed
 >>added javadoc. You can either go the java file or hover your cursor over the method to see more info about that method.
