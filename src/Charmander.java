@@ -6,7 +6,11 @@
 * */
 
 
-public class Charmander implements Fire {
+public class Charmander extends Pokemon implements Fire {
+    public Charmander(String n) {
+        super(n);
+    }
+
     public String ember(Pokemon p){
         return "ember attack!";
     }

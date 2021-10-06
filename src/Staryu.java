@@ -1,5 +1,9 @@
 
-public class Staryu implements Water{
+public class Staryu extends Pokemon implements Water{
+	public Staryu(String n) {
+		super(n);
+	}
+
 	public String watergun(Pokemon p) {
 		return "Water Gun attack!";
 	}

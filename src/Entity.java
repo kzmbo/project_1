@@ -1,4 +1,4 @@
-public class Entity {
+public abstract class Entity {
     private String name;
     private int hp;
     int maxHp;
@@ -6,6 +6,10 @@ public class Entity {
     public Entity(String n, int mHp){
         this.name = n;
         this.maxHp = mHp;
+    }
+
+    public void heal(){
+        System.out.println("Healing");
     }
 
     public String getName(){
