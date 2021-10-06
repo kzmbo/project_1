@@ -1,3 +1,11 @@
+v0.1.0 log
+>Trainer.java is nearly completed
+>>added javadoc. You can either go the java file or hover your cursor over the method to see more info about that method.
+>changed Pokemon class to abstract
+>changed Entity class to abstract
+>added constructors for each pokemons
+
+
 v0.0.0 log
 Comments: pretty much just started working on the project. we still have a lot of work to do. Can't really continue since map, trainer, and pokemon isn't completed. i might work on it tmrw.if not, ill def work on it on wed.
 >added a main menu
