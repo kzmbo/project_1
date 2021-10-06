@@ -1,8 +1,11 @@
 v0.1.0 log
 >Trainer.java is nearly completed
 >>added javadoc. You can either go the java file or hover your cursor over the method to see more info about that method.
+>
 >changed Pokemon class to abstract
+>
 >changed Entity class to abstract
+>
 >added constructors for each pokemons
 
 
