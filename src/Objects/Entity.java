@@ -1,3 +1,5 @@
+package Objects;
+
 public abstract class Entity {
     private String name;
     private int hp;
@@ -10,6 +12,10 @@ public abstract class Entity {
 
     public void heal(){
         System.out.println("Healing");
+    }
+
+    public void takeDamage(int d){
+
     }
 
     public String getName(){
