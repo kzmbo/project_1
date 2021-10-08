@@ -1,6 +1,5 @@
 Guide to Git: https://docs.google.com/document/d/1zx3Cfnt1U-jiPo7edJEiUllWrXbOMd9SYl6znRjD-zE/edit?usp=sharing
 
-<<<<<<< dev
 v0.2.0 log
 >Everything is organized in a folder.
 >>
@@ -19,6 +18,7 @@ v0.2.0 log
 >mainMenu is somewhat completed (i think?)
 >>returns a int value
 >>so north would return 1, south = 2, etc
+
 
 v0.1.0 log
 >Trainer.java is nearly completed

@@ -1,11 +1,15 @@
+package Objects;
+
+import Controller.Map;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * The trainer class represent the player in the game.
- * Trainer is a sub-class of entity, so please refer to the Entity.java for more info.
+ * Objects.Trainer is a sub-class of entity, so please refer to the Objects.Entity.java for more info.
  *
- * Ex: Trainer trainer = new Trainer(name, starting pokemon, and map)
+ * Ex: Objects.Trainer trainer = new Objects.Trainer(name, starting pokemon, and map)
  *
  * */
 
@@ -26,9 +30,9 @@ public class Trainer extends Entity {
         super(n, 100); //adds the trainer's info into entity.java
         pokemon.add(p); //add the trainer's first pokemon into the arraylist
         m.loadMap(1); //creates a map with the map object passed from main.java
-        money = 25;
-        potions = 3;
-        pokeballs = 1;
+        this.money = 25;
+        this.potions = 3;
+        this.pokeballs = 1;
     }
 
     /**
@@ -131,28 +135,28 @@ public class Trainer extends Entity {
 //    }
 
     /**
-     * TODO: Complete Map.java. Not really sure what this method is suppose to return.
+     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goNorth(){
         return 'N';
     }
 
     /**
-     * TODO: Complete Map.java. Not really sure what this method is suppose to return.
+     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goSouth(){
         return 'S';
     }
 
     /**
-     * TODO: Complete Map.java. Not really sure what this method is suppose to return.
+     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goEast(){
         return 'E';
     }
 
     /**
-     * TODO: Complete Map.java. Not really sure what this method is suppose to return.
+     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goWest(){
         return 'W';
@@ -167,7 +171,7 @@ public class Trainer extends Entity {
     }
 
     /**
-     * Heals all the pokemons that the trainer has. Check Entity.java for the method: heal().
+     * Heals all the pokemons that the trainer has. Check Objects.Entity.java for the method: heal().
      * */
     public void healAllPokemon(){
         for(Pokemon i : pokemon){
