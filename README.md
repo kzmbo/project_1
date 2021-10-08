@@ -2,9 +2,13 @@ Guide to Git: https://docs.google.com/document/d/1zx3Cfnt1U-jiPo7edJEiUllWrXbOMd
 
 v0.2.0 log
 >Everything is organized in a folder.
+>>
 >>Pokemon folder has all six Pokemon classes
+>>
 >>Controller folder has main, map, and checkinput
+>>
 >>Interface folder has all three interfaces (fire, water, grass)
+>>
 >>Objects folder has all three objects (Entity, Pokemon, and Trainer)
 
 >Charmander and Ponyta are completed
