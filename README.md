@@ -1,3 +1,21 @@
+Guide to Git: https://docs.google.com/document/d/1zx3Cfnt1U-jiPo7edJEiUllWrXbOMd9SYl6znRjD-zE/edit?usp=sharing
+
+v0.2.0 log
+>Everything is organized in a folder.
+>>Pokemon folder has all six Pokemon classes
+>>Controller folder has main, map, and checkinput
+>>Interface folder has all three interfaces (fire, water, grass)
+>>Objects folder has all three objects (Entity, Pokemon, and Trainer)
+
+>Charmander and Ponyta are completed
+
+>chooseRandomPokemon() is completed
+
+>mainMenu is somewhat completed (i think?)
+>>returns a int value
+>>so north would return 1, south = 2, etc
+
+
 v0.1.0 log
 >Trainer.java is nearly completed
 >>added javadoc. You can either go the java file or hover your cursor over the method to see more info about that method.
