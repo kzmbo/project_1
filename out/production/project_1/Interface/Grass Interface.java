@@ -1,3 +1,6 @@
+/**
+Description: this is the special attacks for the grass pokemon
+*/
 public interface Grass{
   String specialMenu = "1. Vine Whip\n2. Razor Leaf\n3. Solar Beam";
   int numSpecialMenuItems = 3;
