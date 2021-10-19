@@ -5,7 +5,7 @@ import _Pokemon.*;
 
 public class Main {
     public static void main(String arg[]){
-        Trainer trainer;
+        Trainer trainer = new Trainer("", null, new Map());
         Map map = new Map();
 
         System.out.println("Prof. Oak: Hello there new trainer!");
@@ -25,11 +25,8 @@ public class Main {
                 trainer = new Trainer(name, playerStartingPokemon, map);
                 break;
             case 2:
-//                _Pokemon.Charmander charmander = new _Pokemon.Charmander("_Pokemon.Charmander");
-//                Controller.Map map = new Controller.Map();
-//                Objects.Trainer trainer = new Objects.Trainer(name, charmander, map);
-//                System.out.println(trainer.toString());
-//                mainMenu(charmander);
+                playerStartingPokemon= new Bulbasaur();
+                trainer = new Trainer(name, playerStartingPokemon, map);
                 break;
             case 3:
                 playerStartingPokemon = new Squirtle();
@@ -94,19 +91,14 @@ public class Main {
             Pokemon pokemonAI;
             switch (random) {
                 case 1:
-                    System.out.println("Oddish");
-                    // water types
-                    //pokemonAI = new Oddish();
-                    //return pokemonAI;
-                    break;
+                    pokemonAI = new Oddish();
+                    return pokemonAI;
                 case 2:
                     pokemonAI = new Charmander();
                     return pokemonAI;
                 case 3:
-                    System.out.println("Bulbasaur");
-                    // water types
-                    //pokemonAI = new Bulbasaur();
-                    //return pokemonAI;
+                    pokemonAI = new Bulbasaur();
+                    return pokemonAI;
                 case 4:
                     pokemonAI = new Ponyta();
                     return pokemonAI;
