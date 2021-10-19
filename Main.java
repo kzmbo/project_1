@@ -144,6 +144,8 @@ public class Main {
 
         //TODO: its just a bunch of print statements. make sure to change use trainer.java and/or pokemon.java
         public static void store (Trainer t){
+        	final int pokeball_p = 3;
+        	final int potion_p = 5;
             System.out.println("Welcome to the Objects.Pokemon Center!");
             System.out.println("What can I help you with?");
             System.out.println("1. Buy Potion - $5");
@@ -152,10 +154,12 @@ public class Main {
             int storeChoice = CheckInput.getIntRange(1, 3);
             switch (storeChoice) {
                 case 1:
-                    System.out.println("Purchased potion!");
+                	player.spendMoney(potion_p);
+                    System.out.println("Purchased a potion!");
                     break;
                 case 2:
-                    System.out.println("Purchased poke ball!");
+                	player.spendMoney(pokeball_p);
+                    System.out.println("Purchased a poke ball!");
                     break;
                 case 3:
                     System.out.println("*EXITING SHOP*");
