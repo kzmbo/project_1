@@ -2,10 +2,32 @@ package _Pokemon;
 
 import Objects.Pokemon;
 import Interface.Water;
+import Controller.CheckInput;
 
 public class Staryu extends Pokemon implements Water {
 	public Staryu() {
 		super("Staryu");
+	}
+
+	public String watergun(Pokemon p) {
+		int damage = (int) (Math.random() * 5)+ 1;
+		p.takeDamage(damage);
+		String userAttack = p.getName() + "is doused by WATERGUN and takes " + damage + "damage!";
+		return userAttack;
+	}
+	public String bubblebeam(Pokemon p) {
+		int damage = (int) (Math.random() * 2)+ 1;
+		p.takeDamage(damage);
+		String userAttack = p.getName() + "is sprayed by BUBBLEBEAM and takes " + damage + "damage!";
+		return userAttack;
+		
+	}
+	public String waterfall(Pokemon p) {
+		int damage = (int) (Math.random() * 4)+1;
+		p.takeDamage(damage);
+		String userAttack = p.getName() + "is Slammed to the ground by WATERFALL and takes " + damage + "damage!";
+		return userAttack;
+		
 	}
 
 	@Override
@@ -15,26 +37,23 @@ public class Staryu extends Pokemon implements Water {
 
 	@Override
 	public int getNumSpecialMenuItems() {
-		return numSpecialMenuItems;
+		return 3;
 	}
 
 	@Override
 	public String specialAttack(Pokemon p, int move) {
-		return null;
-	}
-
-	@Override
-	public String watergun(Pokemon p) {
-		return "Gun attack!";
-	}
-
-	@Override
-	public String bubblebeam(Pokemon p) {
-		return "Bubble Beam attack!";
-	}
-
-	@Override
-	public String waterfall(Pokemon p) {
-		return "Waterfall attack!";
-	}
+        String specialAttack = "";
+        switch (move){
+            case 1:
+                specialAttack = watergun(p);
+                break;
+            case 2:
+                specialAttack = bubblebeam(p);
+                break;
+            case 3:
+                specialAttack = waterfall(p);
+                break;
+        }
+        return specialAttack;
+    }
 }

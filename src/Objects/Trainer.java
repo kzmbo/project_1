@@ -17,8 +17,8 @@ public class Trainer extends Entity {
     private int money;
     private int potions;
     private int pokeballs;
-    Point ioc;
-    Map map;
+    private Point location;
+    private Map map;
     private ArrayList<Pokemon> pokemon = new ArrayList<Pokemon>();
 
     /**
@@ -29,10 +29,13 @@ public class Trainer extends Entity {
     public Trainer(String n, Pokemon p, Map m ){
         super(n, 100); //adds the trainer's info into entity.java
         pokemon.add(p); //add the trainer's first pokemon into the arraylist
-        m.loadMap(1); //creates a map with the map object passed from main.java
+        this.map = m;
+        m.generateArea(1); //creates a map with the map object passed from main.java
         this.money = 25;
         this.potions = 3;
         this.pokeballs = 1;
+        this.location = m.findStartLocation();
+
     }
 
     /**
@@ -130,36 +133,64 @@ public class Trainer extends Entity {
     /**
      * TODO: whats Point. Not really sure what this method is suppose to return.
      * */
-//    public Point getLocation(){
-//        return Point;
-//    }
+    public Point getLocation(){
+        return this.location;
+    }
 
     /**
      * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goNorth(){
-        return 'N';
+        if(location.y - 1 == -1){
+            map.displayMap(location);
+            return map.getCharAtLocation(location);
+        }
+        location = new Point(location.x, location.y - 1);
+        map.displayMap(location);
+        map.reveal(location);
+        return map.getCharAtLocation(location);
     }
 
     /**
      * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goSouth(){
-        return 'S';
+        if(location.y + 1 == 5){
+            map.displayMap(location);
+            return map.getCharAtLocation(location);
+        }
+        location = new Point(location.x, location.y + 1);
+        map.displayMap(location);
+        map.reveal(location);
+        return map.getCharAtLocation(location);
     }
 
     /**
      * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goEast(){
-        return 'E';
+        if(location.x - 1 == -1){
+            map.displayMap(location);
+            return map.getCharAtLocation(location);
+        }
+        location = new Point(location.x - 1, location.y);
+        map.displayMap(location);
+        map.reveal(location);
+        return map.getCharAtLocation(location);
     }
 
     /**
      * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
      * */
     public char goWest(){
-        return 'W';
+        if(location.x + 1 == 5){
+            map.displayMap(location);
+            return map.getCharAtLocation(location);
+        }
+        location = new Point(location.x + 1, location.y);
+        map.displayMap(location);
+        map.reveal(location);
+        return map.getCharAtLocation(location);
     }
 
     /**

@@ -40,7 +40,7 @@ public abstract class Pokemon extends Entity{
   @return: returning the num for basic menu
   */
   public int getNumBasicMenuItems(){
-    int num = CheckInput.getIntRange(1, 4);
+    int num = CheckInput.getIntRange(1, 3);
     return num;
   }
   /**
