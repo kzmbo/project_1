@@ -8,29 +8,21 @@ import java.util.Scanner;
 
 
 public class Map implements Serializable {
-	private Map prev;
-	private Map next;
+	private boolean next = false;
     private char [][] map;
     private boolean [][] revealed;
 
     public Map() {
-         map = new char[5][5];
-         revealed = new boolean[5][5];
+         this.map = new char[5][5];
+         this.revealed = new boolean[5][5];
     }
 
-    public Map getPrevMap() {
-		return prev;
-	}
 
-	public void setPrevMap(Map prev) {
-		this.prev = prev;
-	}
-
-	public Map getNextMap() {
+	public boolean checkNextMap() {
 		return next;
 	}
 
-	public void setNextMap(Map next) {
+	public void setNextMap(Boolean next) {
 		this.next = next;
 	}
     
@@ -50,6 +42,7 @@ public class Map implements Serializable {
 				map[i][j] = str[j].charAt(0);
 			}
 		}
+
 	}
 	
 	public char getCharAtLocation(Point p) {
@@ -59,24 +52,47 @@ public class Map implements Serializable {
 			return 'x';
 		}
 	}
+
+	/**
+	 * first, it checks if a new map has been created. if so, reset the reveal array (or set it to false),
+	 * and print out the map with x except for shops and the starting point.
+	 * */
 	public void displayMap(Point p) {
-		System.out.println(" ----------- ");
-		for (int i = 0; i < map.length; i++) {
-			System.out.print("| ");
-			for (int j = 0; j < map.length; j++) {
-				if (i == (int) p.getY() && j == (int) p.getX()) {
-					System.out.print("*");
-				}else {
-					System.out.print((revealed[i][j] == true || map[i][j] == 'c' || map[i][j] == 's') ? map[i][j] : "x");
+		if(checkNextMap()){
+			System.out.println(" ----------- ");
+			for (int i = 0; i < map.length; i++){
+				System.out.print("| ");
+				for (int j = 0; j < map.length; j++){
+					revealed[i][j] = false;
+					if (i == (int) p.getY() && j == (int) p.getX()) {
+						System.out.print('*');
+					}else {
+						System.out.print((map[i][j] == 'c' || map[i][j] == 's') ? map[i][j] : 'x');
+					}
+					System.out.print(" ");
 				}
-				System.out.print(" ");
+				System.out.println("|");
 			}
-			System.out.println("|");
+			System.out.println(" ----------- ");
+			setNextMap(false);
+		} else{
+			System.out.println(" ----------- ");
+			for (int i = 0; i < map.length; i++) {
+				System.out.print("| ");
+				for (int j = 0; j < map.length; j++) {
+					if (i == (int) p.getY() && j == (int) p.getX()) {
+						System.out.print('*');
+					}else {
+						System.out.print((revealed[i][j] == true || map[i][j] == 'c' || map[i][j] == 's') ? map[i][j] : 'x');
+					}
+					System.out.print(" ");
+				}
+				System.out.println("|");
+			}
+			System.out.println(" ----------- ");
 		}
-		System.out.println(" ----------- ");
 	}
-	
-	
+
 	public Point findStartLocation() {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
