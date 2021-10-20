@@ -3,18 +3,33 @@ package Objects;
 public abstract class Entity {
     private String name;
     private int hp;
-    int maxHp;
+    private int maxHp;
 
     public Entity(String n, int mHp){
         this.name = n;
         this.maxHp = mHp;
+        hp = maxHp;
+    }
+
+    public void setName(String name) {
+    	this.name = name;
+    }
+    
+    public int getHp() {
+    	return hp;
+    }
+    
+    public int getMaxHp() {
+    	return maxHp;
     }
 
     public void heal(){
         System.out.println("Healing");
+        this.hp = maxHp;
     }
 
     public void takeDamage(int d){
+    	this.hp -= d;
 
     }
 
