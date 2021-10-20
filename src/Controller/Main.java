@@ -11,6 +11,7 @@ public class Main {
     static Trainer player;
     static Pokemon playerStartingPokemon;
     static char currentChar;
+    static int currentMapIndex = 1;
 
     public static void main(String arg[]){
         System.out.println("Prof. Oak: Hello there new trainer!");
@@ -64,9 +65,11 @@ public class Main {
                     break;
             }//end switch
 
+
             switch (currentChar){
                 case 'n':
                     System.out.println("No encounter found");
+                    break;
                 case 'i':
                     System.out.println("I found an item!");
                     int selectRandomItem = (int) (Math.random() * 4) + 1;
@@ -77,6 +80,7 @@ public class Main {
                         System.out.println("It's a pokeball");
                         player.receivePokeBall();
                     }
+                    currentMap.removeOppAtLoc(player.getLocation());
                     break;
                 case 'w':
                     trainerAttack(player, chooseRandomPokemon());
@@ -97,10 +101,24 @@ public class Main {
                         System.out.println("Ahhhhhh!! The stranger assaulted me for no reason");
                         player.takeDamage(10);
                     }
+                    currentMap.removeOppAtLoc(player.getLocation());
                     break;
                 case 'c':
                     store(player);
                     break;
+                case 'f':
+                    System.out.println("You have found a finish checkpoint!");
+                    System.out.println("Do you want to leave the current map?");
+                    boolean leaveMap = CheckInput.getYesNo();
+                    if(leaveMap) {
+                        if(currentMapIndex == 3){
+                            currentMapIndex = 1;
+                        } else{
+                            currentMapIndex += 1;
+                        }
+                        currentMap.generateArea(currentMapIndex);
+                        currentMap.displayMap(currentMap.findStartLocation());
+                    }
             }
             //end switch
         }
@@ -115,8 +133,6 @@ public class Main {
     *   quit game = 5
     * */
     public static int mainMenu() {
-        System.out.println();
-        System.out.println("--map--");
         System.out.println();
         System.out.println("Main Menu:");
         System.out.println("1. Go North");

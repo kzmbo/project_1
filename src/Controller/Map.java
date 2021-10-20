@@ -22,17 +22,14 @@ public class Map implements Serializable {
 		return prev;
 	}
 
-	
 	public void setPrevMap(Map prev) {
 		this.prev = prev;
 	}
-	
 
 	public Map getNextMap() {
 		return next;
 	}
-	
-	
+
 	public void setNextMap(Map next) {
 		this.next = next;
 	}
@@ -57,8 +54,6 @@ public class Map implements Serializable {
 	
 	public char getCharAtLocation(Point p) {
 		try {
-
-//			return 'b'; //map[(int) p.getY()][(int) p.getX()];
 			return map[(int) p.getY()][(int) p.getX()];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return 'x';
