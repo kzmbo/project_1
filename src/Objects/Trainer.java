@@ -121,75 +121,96 @@ public class Trainer extends Entity {
     }
 
     /**
-     * TODO: i believe in the lore theres a chance on whether a downed pokemon will stay in the pokeball or not. will implement later.
+     * Chances of a pokemon getting captured.
+     * HP <= 1: 100% chance of getting captured
+     * HP 2 - 9: 75% chance of getting captured
+     * HP 10 - 19: 25% chance of getting captured
+     * HP 20+: 0% chance of getting captured
+     *
      * if the pokemon is captured, the pokemon will be added into the pokemon arraylist.
-     * @return true if a pokemon is captured
+     * @return true if a pokemon is captured.
      * */
     public boolean catchPokemon(Pokemon p){
-        pokemon.add(p);
-        return true;
+        if(p.getHp() <= 1){
+            pokemon.add(p);
+            return true;
+        }else if (p.getHp() > 1 && p.getHp() < 10){
+            int chanceToCatch = (int) (Math.random() * 100) + 1;
+            if (chanceToCatch <= 75){
+                pokemon.add(p);
+                return true;
+            }
+        } else if (p.getHp() >= 10 && p.getHp() < 20){
+            int chanceToCatch = (int) (Math.random() * 100) + 1;
+            if (chanceToCatch <= 25){
+                pokemon.add(p);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
-     * TODO: whats Point. Not really sure what this method is suppose to return.
+     * @return the current location of the player in the map. Note: location is a Point object.
      * */
     public Point getLocation(){
         return this.location;
     }
 
     /**
-     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
+     * the player will move east (location.x - 1) as long as the player is in within the area (index -1 is the limit).
+     * Note: the map size is 5x5. So when assigning a new point, the range is from 0 - 4.
+     * Remember: N.E.S.W = Never Eat Sour Watermelon (clockwise)
+     * @return the character (c, w, p, i, s, f, and n) at the location the player is on.
      * */
     public char goNorth(){
         if(location.y - 1 == -1){
-            map.displayMap(location);
             return map.getCharAtLocation(location);
         }
         location = new Point(location.x, location.y - 1);
-        map.displayMap(location);
-        map.reveal(location);
         return map.getCharAtLocation(location);
     }
 
     /**
-     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
+     * the player will move east (location.y + 1) as long as the player is in within the area (index 5 is the limit).
+     * Note: the map size is 5x5. So when assigning a new point, the range is from 0 - 4.
+     * Remember: N.E.S.W = Never Eat Sour Watermelon (clockwise)
+     * @return the character (c, w, p, i, s, f, and n) at the location the player is on.
      * */
     public char goSouth(){
         if(location.y + 1 == 5){
-            map.displayMap(location);
             return map.getCharAtLocation(location);
         }
         location = new Point(location.x, location.y + 1);
-        map.displayMap(location);
-        map.reveal(location);
         return map.getCharAtLocation(location);
     }
 
     /**
-     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
+     * the player will move east (location.x + 1) as long as the player is in within the area (index 5 is the limit).
+     * Note: the map size is 5x5. So when assigning a new point, the range is from 0 - 4.
+     * Remember: N.E.S.W = Never Eat Sour Watermelon (clockwise)
+     * @return the character (c, w, p, i, s, f, and n) at the location the player is on.
      * */
     public char goEast(){
-        if(location.x - 1 == -1){
-            map.displayMap(location);
-            return map.getCharAtLocation(location);
-        }
-        location = new Point(location.x - 1, location.y);
-        map.displayMap(location);
-        map.reveal(location);
-        return map.getCharAtLocation(location);
-    }
-
-    /**
-     * TODO: Complete Controller.Map.java. Not really sure what this method is suppose to return.
-     * */
-    public char goWest(){
         if(location.x + 1 == 5){
-            map.displayMap(location);
             return map.getCharAtLocation(location);
         }
         location = new Point(location.x + 1, location.y);
-        map.displayMap(location);
-        map.reveal(location);
+        return map.getCharAtLocation(location);
+    }
+
+    /**
+     * the player will move west (location.x - 1) as long as the player is in within the area (index -1 is the limit).
+     * Note: the map size is 5x5. So when assigning a new point, the range is from 0 - 4.
+     * Remember: N.E.S.W = Never Eat Sour Watermelon (clockwise)
+     * @return the character (c, w, p, i, s, f, and n) at the location the player is on.
+     * */
+    public char goWest(){
+        if(location.x - 1 == -1){
+            //map.displayMap(location);
+            return map.getCharAtLocation(location);
+        }
+        location = new Point(location.x - 1, location.y);
         return map.getCharAtLocation(location);
     }
 
@@ -230,10 +251,12 @@ public class Trainer extends Entity {
     }
 
     /**
-     * TODO: gotta add money, potion, and pokeballs.
-     * @return a string of the trainer object.
+     * @return a string of the trainer object. name, money, # of potion, and # of pokeballs.
      * */
     public String toString(){
-        return getName() + " " + pokemon.get(0).getName();
+        return (getName() + ", $" +
+                money +
+                potions + " potions, " +
+                pokeballs + " pokeballs ");
     }
 }
