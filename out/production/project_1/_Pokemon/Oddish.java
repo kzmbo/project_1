@@ -55,6 +55,7 @@ Description: special attack number 1
   */
   @Override
   public int getNumSpecialMenuItems(){
+    int numSpecialMenuItems = CheckInput.getIntRange(1,3);
     return numSpecialMenuItems;
   }
   /**
