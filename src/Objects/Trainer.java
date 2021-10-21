@@ -35,7 +35,6 @@ public class Trainer extends Entity {
         this.potions = 3;
         this.pokeballs = 1;
         this.location = m.findStartLocation();
-
     }
 
     /**
@@ -51,11 +50,12 @@ public class Trainer extends Entity {
      * @return true if the user spent any money. false if the user somehow spends less than $0.
      * */
     public boolean spendMoney(int amount){
-        if(amount > 0) {
+        if((this.money - amount) < 0) {
+            return false;
+        }else {
             this.money -= amount;
             return true;
         }
-        return false;
     }
 
     /**
@@ -65,7 +65,6 @@ public class Trainer extends Entity {
      * */
     public void receiveMoney(int amount){
         this.money += amount;
-        System.out.println("** I have " + money + " money. **");
     }
 
     /**
@@ -87,7 +86,6 @@ public class Trainer extends Entity {
      * */
     public void receivePotion(){
         this.potions += 1;
-        System.out.println("** I have " + potions + " potions. **");
     }
 
     /**
@@ -117,7 +115,6 @@ public class Trainer extends Entity {
      * */
     public void receivePokeBall(){
         this.pokeballs += 1;
-        System.out.println("** I have " + pokeballs + " pokeballs. **");
     }
 
     /**
@@ -131,19 +128,28 @@ public class Trainer extends Entity {
      * @return true if a pokemon is captured.
      * */
     public boolean catchPokemon(Pokemon p){
-        if(p.getHp() <= 1){
+        if ((pokeballs - 1) == -1){
+            System.out.println("Shoot! I'm outta pokeballs");
+            return false;
+        }
+
+        this.pokeballs -= 1;
+        if(p.getHp() <= 3){
             pokemon.add(p);
+            p.heal();
             return true;
-        }else if (p.getHp() > 1 && p.getHp() < 10){
+        }else if (p.getHp() > 3 && p.getHp() < 10){
             int chanceToCatch = (int) (Math.random() * 100) + 1;
             if (chanceToCatch <= 75){
                 pokemon.add(p);
+                p.heal();
                 return true;
             }
         } else if (p.getHp() >= 10 && p.getHp() < 20){
             int chanceToCatch = (int) (Math.random() * 100) + 1;
-            if (chanceToCatch <= 25){
+            if (chanceToCatch <= 19){
                 pokemon.add(p);
+                p.heal();
                 return true;
             }
         }
@@ -244,8 +250,10 @@ public class Trainer extends Entity {
      * */
     public String getPokemonList(){
         String listOfPokemon = "";
+        int index = 1;
         for (Pokemon i : pokemon){
-            listOfPokemon += i.getName() + ", ";
+            listOfPokemon += index + ". " + i.getName() +  " HP: " + i.getHp() + "/" + i.getMaxHp() + "\n";
+            index++;
         }
         return listOfPokemon;
     }
@@ -255,7 +263,7 @@ public class Trainer extends Entity {
      * */
     public String toString(){
         return (getName() + ", $" +
-                money +
+                money + ", " +
                 potions + " potions, " +
                 pokeballs + " pokeballs ");
     }

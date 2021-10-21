@@ -1,7 +1,8 @@
 package Objects;
-import Controller.*;
-
 import java.lang.Math;
+import Controller.*;
+import Interface.*;
+
   /**
   Description: the pokemon class 
   */
@@ -68,7 +69,7 @@ public abstract class Pokemon extends Entity{
   @return: returning the attack menu
   */
   public String getAttackMenu(){
-    String attackMenu = "1. Basic Attack\n 2. Special Attack";
+    String attackMenu = "1. Basic Attack\n2. Special Attack";
     return attackMenu;
   }
   /**
@@ -85,9 +86,9 @@ public abstract class Pokemon extends Entity{
   @return: returning the users attack slam
   */
   public String slam(Pokemon p){
-    int damage = (int)(Math.random()*5)+0;
+    int damage = (int)(Math.random() * 5);
     p.takeDamage(damage);
-    String userAttack = p.getName()+"is SLAMMED and takes "+damage+"damage";
+    String userAttack = p.getName()+" is SLAMMED and takes " + damage + " damage";
     return userAttack;
   }
   /**
@@ -96,9 +97,9 @@ public abstract class Pokemon extends Entity{
   @return: returning the users attack tackle
   */
   public String tackle(Pokemon p){
-    int damage = (int)(Math.random()+3)+2;
+    int damage = (int)(Math.random() * 3) + 2;
     p.takeDamage(damage);
-    String userAttack = p.getName()+"is TACKLED and take "+damage+"damage";
+    String userAttack = p.getName()+" is TACKLED and take " + damage + " damage";
     return userAttack;
   }
   /**
@@ -107,9 +108,9 @@ public abstract class Pokemon extends Entity{
   @return: returning the users attack punch
   */
   public String punch(Pokemon p){
-    int damage = (int)(Math.random()+4)+1;
+    int damage = (int)(Math.random() * 4) + 1;
     p.takeDamage(damage);
-    String userAttack = p.getName()+"is PUNCHED and take "+damage+"damage";
+    String userAttack = p.getName()+" is PUNCHED and take " + damage + " damage";
     return userAttack;
   }
   /**

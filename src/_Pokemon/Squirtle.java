@@ -12,20 +12,20 @@ public class Squirtle extends Pokemon implements Water {
 	public String watergun(Pokemon p) {
 		int damage = (int) (Math.random() * 4)+2;
 		p.takeDamage(damage);
-		String userAttack = p.getName() + "is doused by WATERGUN and takes " + damage + "damage!";
+		String userAttack = p.getName() + "is doused by WATERGUN and takes " + damage + " damage!";
 		return userAttack;
 	}
 	public String bubblebeam(Pokemon p) {
 		int damage = (int) (Math.random() * 3)+ 1;
 		p.takeDamage(damage);
-		String userAttack = p.getName() + "is sprayed by BUBBLEBEAM and takes " + damage + "damage!";
+		String userAttack = p.getName() + "is sprayed by BUBBLEBEAM and takes " + damage + " damage!";
 		return userAttack;
 		
 	}
 	public String waterfall(Pokemon p) {
 		int damage = (int) (Math.random() * 4)+1;
 		p.takeDamage(damage);
-		String userAttack = p.getName() + "is Slammed to the ground by WATERFALL and takes " + damage + "damage!";
+		String userAttack = p.getName() + "is slammed to the ground by WATERFALL and takes " + damage + " damage!";
 		return userAttack;
 		
 	}
@@ -37,7 +37,8 @@ public class Squirtle extends Pokemon implements Water {
 
 	@Override
 	public int getNumSpecialMenuItems() {
-		return 3;
+		int numSpecialMenuItems = CheckInput.getIntRange(1,3);
+		return numSpecialMenuItems;
 	}
 
 	@Override
