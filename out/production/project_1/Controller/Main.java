@@ -1,9 +1,3 @@
-class Main {
-  public static void main(String[] args) {
-    System.out.println("Hello world!");
-  }
-
-
   public static void trainerAttack(Trainer t, Pokemon wild){
     System.out.println(t.getPokemonList());
     int pokemonChosen = CheckInput.getIntRange(1,t.getNumPokemon()-1);
@@ -32,4 +26,3 @@ class Main {
 		  System.out.println(wild.specialAttack(attackingPokemon, wildNum));
 	  }
   }//end of the trainer attack method
-}//end of the main
