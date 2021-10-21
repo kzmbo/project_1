@@ -29,8 +29,11 @@ public abstract class Entity {
     }
 
     public void takeDamage(int d){
-    	this.hp -= d;
-
+        if ((this.hp - d) <= 0 ){
+            this.hp = -1;
+        }else {
+            this.hp -= d;
+        }
     }
 
     public String getName(){

@@ -1,4 +1,5 @@
 package _Pokemon;
+import Controller.CheckInput;
 import Objects.Pokemon;
 import Interface.Fire;
 
@@ -70,6 +71,7 @@ public class Charmander extends Pokemon implements Fire {
      */
     @Override
     public int getNumSpecialMenuItems() {
+        int numSpecialMenuItems = CheckInput.getIntRange(1,3);
         return numSpecialMenuItems;
     }
 

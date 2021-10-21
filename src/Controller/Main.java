@@ -9,10 +9,13 @@ import java.awt.*;
 public class Main {
     static Trainer player;
     static Pokemon playerStartingPokemon;
+    static Map currentMap = new Map();
     static char currentChar;
     static int currentMapIndex = 1;
 
     public static void main(String arg[]){
+
+
         System.out.println("Prof. Oak: Hello there new trainer!");
         System.out.println("What's your name?");
         String name = CheckInput.getString();
@@ -24,18 +27,20 @@ public class Main {
         System.out.println("3. Squirtle");
         int choice = CheckInput.getIntRange(1, 3);
 
-        Map currentMap = new Map();
-        switch (choice){
-            case 1:
-                playerStartingPokemon= new Charmander();
-                player = new Trainer(name, playerStartingPokemon, currentMap);
-            case 2:
-                playerStartingPokemon= new Bulbasaur();
-                player = new Trainer(name, playerStartingPokemon, currentMap);
-            case 3:
-                playerStartingPokemon = new Squirtle();
-                player = new Trainer(name, playerStartingPokemon, currentMap);
+        //Map currentMap = new Map();
+        if (choice == 1) {
+            playerStartingPokemon = new Charmander();
+            player = new Trainer(name, playerStartingPokemon, currentMap);
+            //System.out.println(player.getPokemonList());
+        } else if (choice == 2) {
+            playerStartingPokemon = new Bulbasaur();
+            player = new Trainer(name, playerStartingPokemon, currentMap);
+        } else {
+            playerStartingPokemon = new Squirtle();
+            player = new Trainer(name, playerStartingPokemon, currentMap);
         }
+
+        System.out.println(player.getPokemonList());
 
         boolean isGameRunning = true;
         while(isGameRunning){
@@ -192,40 +197,82 @@ public class Main {
             return null;
         }
 
-        //TODO: its just a bunch of print statements. make sure to use trainer.java and/or pokemon.java
-        public static void trainerAttack (Trainer t, Pokemon wild){
-            boolean isTrainerAttackRunning = true;
-            while(isTrainerAttackRunning){
-                System.out.println("A wild " + wild.getName() + " has appeared");
-                System.out.println( wild.getName() + " HP:" + wild.getHp() + "/" + wild.getMaxHp());
+        public static void trainerAttack(Trainer t, Pokemon wild){
+            int pokemonChosen = 0;
+            System.out.println();
+            System.out.println("A wild " + wild.getName() + " has appeared.");
+
+            boolean isTrainerAttacking = true;
+            while (isTrainerAttacking){
+                System.out.println(wild.getName() + " HP: " + wild.getHp() + "/" + wild.getMaxHp());
                 System.out.println("What do you want to do?");
-                System.out.println("1. Fight");
-                System.out.println("2. Use Potion");
-                System.out.println("3. Throw Poke Ball");
-                System.out.println("4. Run Away");
-                int attackChoice = CheckInput.getIntRange(1, 4);
-                switch (attackChoice) {
+                System.out.println("1. Fight\n2. Use Potion\n3. Throw Poke Ball\n4. Run Away");
+                int choice = CheckInput.getIntRange(1, 4);
+                switch (choice) {
                     case 1:
-                        System.out.println("Fight!");
-                        break;
+                        System.out.println("Choose a Pokemon: ");
+                        System.out.println(t.getPokemonList());
+                        pokemonChosen = CheckInput.getIntRange(1,t.getNumPokemon());
+                        Pokemon attackingPokemon = t.getPokemon(pokemonChosen - 1);
+                        if(t.getPokemon(pokemonChosen - 1).getHp() <= 0){
+                            System.out.println("Darn! " + t.getPokemon(pokemonChosen - 1).getName() + " is downed! Can't fight");
+                            break;
+                        }
+                        System.out.println(attackingPokemon.getName() +" I CHOSE YOU!!!");
+
+                        System.out.println(attackingPokemon.getAttackMenu());
+                        int attack = attackingPokemon.getNumAttackMenuItems();
+
+                        if(attack == 1){
+                            System.out.println(attackingPokemon.getBasicMenu());
+                            int num = attackingPokemon.getNumBasicMenuItems();
+                            System.out.println(attackingPokemon.basicAttack(wild,num));
+                        } else{
+                            System.out.println(attackingPokemon.getSpecialMenu());
+                            int num = attackingPokemon.getNumSpecialMenuItems();
+                            System.out.println(attackingPokemon.specialAttack(wild,num));
+                        }
+
+                        int wildAttack = (int) (Math.random() + 1) + 1;
+                        if(wildAttack == 1) {
+                            int wildNum = (int) (Math.random() + 2) + 1;
+                            System.out.println(wild.basicAttack(attackingPokemon, wildNum));
+                        }
+                        else {
+                            int wildNum = (int) (Math.random() + 2) + 1;
+                            System.out.println(wild.specialAttack(attackingPokemon, wildNum));
+                        }
+                       break;
                     case 2:
-                        System.out.println("Drink up some potion");
+                        System.out.println("Choose a Pokemon to heal: ");
+                        System.out.println(t.getPokemonList());
+                        pokemonChosen = CheckInput.getIntRange(1,t.getNumPokemon());
+                        t.usePotion(pokemonChosen - 1);
                         break;
                     case 3:
-                        System.out.println("throwing a poke ball");
+                        System.out.println("Shake...Shake...Shake");
+                        if (t.catchPokemon(wild)){
+                            System.out.println("You caught " + wild.getName());
+                            System.out.println(t.toString());
+                            System.out.println(t.getPokemonList());
+                            currentMap.removeOppAtLoc(t.getLocation());
+                            isTrainerAttacking = false;
+                        } else {
+                            System.out.println("Oh no! " + wild.getName() + " has escaped!");
+                        }
                         break;
                     case 4:
-                        System.out.println("running away!");
-                        isTrainerAttackRunning = false;
-                        break;
-                    default:
-                        System.out.println("Invalid input!");
+                        System.out.println("Shucks! Let's book it!");
+                        System.out.println(wild.getName() + " is running away as well!");
+                        isTrainerAttacking = false;
                         break;
                 }
+                //end switch
             }
-        }
+            //end while loop
+        }//end of the trainer attack method
 
-        //TODO: its just a bunch of print statements. make sure to change use trainer.java and/or pokemon.java
+
         public static void store (Trainer t){
         	final int priceOfPokeball = 3;
         	final int priceOfPotion = 5;
@@ -233,18 +280,27 @@ public class Main {
             while(isTrainerShopping){
                 System.out.println("Welcome to the Objects.Pokemon Center!");
                 System.out.println("What can I help you with?");
+                System.out.println(t.toString());
                 System.out.println("1. Buy Potion - $5");
                 System.out.println("2. Buy Poke Ball - $3");
                 System.out.println("3. EXIT SHOP");
                 int storeChoice = CheckInput.getIntRange(1, 3);
                 switch (storeChoice) {
                     case 1:
-                        t.spendMoney(priceOfPokeball);
-                        System.out.println("Purchased a potion!");
+                        if (t.spendMoney(priceOfPotion)){
+                            t.receivePotion();
+                            System.out.println("Purchased a potion!");
+                        } else {
+                            System.out.println("Insufficient funds");
+                        }
                         break;
                     case 2:
-                        t.spendMoney(priceOfPotion);
-                        System.out.println("Purchased a poke ball!");
+                        if (t.spendMoney(priceOfPokeball)){
+                            t.receivePokeBall();
+                            System.out.println("Purchased a pokeball");
+                        } else {
+                            System.out.println("Insufficient funds");
+                        }
                         break;
                     case 3:
                         System.out.println("*EXITING SHOP*");

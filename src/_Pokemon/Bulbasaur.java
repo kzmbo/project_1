@@ -1,6 +1,7 @@
 package _Pokemon;
 import Objects.Pokemon;
 import Interface.Grass;
+import Controller.CheckInput;
 
 /**
 Description: This is the Grass pokemon Bulbasaur 
@@ -18,7 +19,7 @@ public class Bulbasaur extends Pokemon implements Grass{
   public String vineWhip(Pokemon p){
     int damage = (int)(Math.random()*3)+1;
     p.takeDamage(damage);
-    String userAttack = p.getName()+" is WHIPPED and takes "+damage+" damage.";
+    String userAttack = p.getName()+" is WHIPPED and takes " + damage + " damage.";
     return userAttack;
   }
   /**
@@ -30,7 +31,7 @@ public class Bulbasaur extends Pokemon implements Grass{
   public String razorLeaf(Pokemon p){
     int damage = (int)(Math.random()*4)+2;
     p.takeDamage(damage);
-    String userAttack = p.getName()+" is attacked by razor"+damage+" damage.";
+    String userAttack = p.getName()+" is attacked by razor " + damage + " damage.";
     return userAttack;
   }
   /**
@@ -42,12 +43,12 @@ public class Bulbasaur extends Pokemon implements Grass{
   public String solarBeam(Pokemon p){
     int damage = (int)(Math.random()*5)+0;
     p.takeDamage(damage);
-    String userAttack = p.getName()+" is SLAMMED by a force of sunlight and takes "+damage+" damage.";
+    String userAttack = p.getName()+" is SLAMMED by a force of sunlight and takes " + damage + " damage.";
     return userAttack;
   }
   /**
-  Description: Displays the special attack menu for grass pokemon
-  @return: the special menu found in grass interface
+  Description: Displays the special menu
+  @return: the special menu 
   */
   @Override
   public String getSpecialMenu(){
@@ -55,14 +56,15 @@ public class Bulbasaur extends Pokemon implements Grass{
   }
   /**
   Description: getting the special menu number
-  @return: the special menu number chosen from grass interface
+  @return: the special menu number chosen 
   */
   @Override
   public int getNumSpecialMenuItems(){
+    int numSpecialMenuItems = CheckInput.getIntRange(1,3);
     return numSpecialMenuItems;
   }
   /**
-  Description: getting the special attack from grass interface
+  Description: getting the special attack 
   @param: Pokemon p is the pokemon we are attacking, and move is which special attack
   @return: what attack we are doing
   */
