@@ -3,6 +3,7 @@
     int pokemonChosen = CheckInput.getIntRange(1,t.getNumPokemon()-1);
 
     Pokemon attackingPokemon = t.getPokemon(pokemonChosen);
+	  System.out.println(attackingPokemon.getName() +" I CHOSE YOU!!!");
     System.out.println(attackingPokemon.getAttackMenu());
     int attack = attackingPokemon.getNumBasicMenuItems();
 
