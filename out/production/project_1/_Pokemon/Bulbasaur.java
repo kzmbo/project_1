@@ -55,6 +55,7 @@ public class Bulbasaur extends Pokemon implements Grass{
   */
   @Override
   public int getNumSpecialMenuItems(){
+    int numSpecialMenuItems = CheckInput.getIntRange(1,3);
     return numSpecialMenuItems;
   }
   /**
