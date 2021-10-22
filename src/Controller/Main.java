@@ -7,6 +7,13 @@ import java.awt.*;
 
 
 public class Main {
+
+    /**
+     * Responsible for initializing the game.
+     * It does it by asking the user for their username.
+     * Secondly, the player choose their starting pokemon
+     * Lastly, a loop continues to run until the game is over, or if the user quits
+     * */
     public static void main(String arg[]){
         System.out.println("Prof. Oak: Hello there new trainer!");
         System.out.println("What's your name?");
@@ -14,9 +21,9 @@ public class Main {
 
         System.out.println("Nice to meet you, " + name);
         System.out.println("Choose your first pokemon:");
-        System.out.println("1. Charmander");
-        System.out.println("2. Bulbasaur");
-        System.out.println("3. Squirtle");
+        System.out.println("1. Charmander (FIRE)");
+        System.out.println("2. Bulbasaur (GRASS)");
+        System.out.println("3. Squirtle (WATER)");
         int choice = CheckInput.getIntRange(1, 3);
 
         Trainer player;
@@ -35,11 +42,11 @@ public class Main {
             playerStartingPokemon = new Squirtle();
             player = new Trainer(name, playerStartingPokemon, currentMap);
         }
-
-        System.out.println(player.getPokemonList());
+        System.out.println("I choose you..." + playerStartingPokemon.getName() + "\n");
 
         boolean isGameRunning = true;
         while(isGameRunning){
+            System.out.println(player.toString());
             currentMap.displayMap(player.getLocation());
             int playerChoice = mainMenu();
             switch (playerChoice) {
@@ -64,6 +71,7 @@ public class Main {
             }//end switch
             currentMap.reveal(player.getLocation());
 
+            //if the game is still running, check what character the player is under.
             if(isGameRunning) {
                 if (currentChar == 'n') {
                     System.out.println("No encounter found");
@@ -119,8 +127,26 @@ public class Main {
                         System.out.println("It turns out its the Pokemon League Champion! they tell you they are on a stroll and ask you not to tell anyone they were there.");
                     }
                     currentMap.removeOppAtLoc(player.getLocation());
+                    if(player.getHp() <= 0){
+                        System.out.println(player.getName() + " is dead with HP:" + player.getHp() + "/" + player.getMaxHp());
+                        isGameRunning = false;
+                    }
                 } else if (currentChar == 'c') {
-                    store(player);
+                    System.out.println("Should I head to the Pokemon Hospital or to the PokeCenter?");
+                    System.out.println("1. Pokemon Hospital\n2. PokeCenter\n3. Leave City");
+                    int x = CheckInput.getIntRange(1, 3);
+                    if (x == 1) {
+                        System.out.println("Hello there " + player.getName() + "! Lets get your pokemons healed up");
+                        player.healAllPokemon();
+                        System.out.println("...");
+                        System.out.println("Take a look at all your pokemons");
+                        System.out.println(player.getPokemonList());
+                        System.out.println("All patched up now! You go on now!");
+                    }else if (x == 2){
+                        store(player);
+                    } else{
+                        System.out.println("Leaving city. Come on " + player.getPokemon(0) + ". Let's book it.");
+                    }
                 } else if (currentChar == 'f') {
                     System.out.println("You have found a finish checkpoint!");
                     System.out.println("Do you want to leave the current map?");
@@ -139,13 +165,10 @@ public class Main {
         }//end while loop
     }
 
-    /* mainMenu() will return...
-    *   north = 1
-    *   south = 2
-    *   east = 3
-    *   west = 4
-    *   quit game = 5
-    * */
+    /**
+     * Responsible for stating the main menu
+     * Remember! N.E.S.W = Never Eat Sour Watermelon (Clockwise)
+     * */
     public static int mainMenu() {
         System.out.println();
         System.out.println("Main Menu:");
@@ -157,30 +180,38 @@ public class Main {
         int choice = CheckInput.getIntRange(1, 5);
         switch (choice) {
             case 1:
-                System.out.println("Heading North!");
+                System.out.println("Heading North!\n");
                 return 1;
             case 2:
-                System.out.println("Heading South!");
+                System.out.println("Heading South!\n");
                 return 2;
             case 3:
-                System.out.println("Heading East!");
+                System.out.println("Heading East!\n");
                 return 3;
             case 4:
-                System.out.println("Heading West!");
+                System.out.println("Heading West!\n");
                 return 4;
             case 5:
-                System.out.println("Game Over!");
+                System.out.println("Game Over!\n");
                 return 5;
             default:
-                System.out.println("Invalid input!");
+                System.out.println("Invalid input!\n");
                 break;
         }
         return 0;
     }
 
+    /**
+     * Responsible for choosing a random pokemon ai
+     * 1 - Oddish
+     * 2 - Charmander
+     * 3 - Bulbasaur
+     * 4 - Ponyta
+     * 5 - Staryu
+     * 6 - Squirtle
+     * */
         public static Pokemon chooseRandomPokemon() {
             int random = (int) (Math.random() * 6) + 1;
-            System.out.println(random);
             Pokemon pokemonAI;
             switch (random) {
                 case 1:
@@ -205,87 +236,144 @@ public class Main {
             return null;
         }
 
+
+    /**
+     * Responsible for running the battle.
+     * the basic menu
+     * 1 - fight
+     * 2 - use potions
+     * 3 - throw pokeball
+     * 4 - run away
+     *
+     * Under the fight menu, it has...
+     * 1 - Basic Attack
+     * 2 - Special Attack
+     *
+     * Under the basic attack, it has
+     * 1 - slam
+     * 2 - tackle
+     * 3 - punch
+     *
+     * Under the special attack, check the type of pokemon to see what they offer!
+     * */
         public static void trainerAttack(Trainer t, Pokemon wild){
             int pokemonChosen = 0;
             System.out.println();
             System.out.println("A wild " + wild.getName() + " has appeared.");
 
             boolean isTrainerAttacking = true;
-            while (isTrainerAttacking){
+            while (isTrainerAttacking ){
                 System.out.println(wild.getName() + " HP: " + wild.getHp() + "/" + wild.getMaxHp());
+                System.out.println(t.toString());
                 System.out.println("What do you want to do?");
                 System.out.println("1. Fight\n2. Use Potion\n3. Throw Poke Ball\n4. Run Away");
                 int choice = CheckInput.getIntRange(1, 4);
-                switch (choice) {
-                    case 1:
-                        System.out.println("Choose a Pokemon: ");
-                        System.out.println(t.getPokemonList());
-                        pokemonChosen = CheckInput.getIntRange(1,t.getNumPokemon());
-                        Pokemon attackingPokemon = t.getPokemon(pokemonChosen - 1);
-                        if(t.getPokemon(pokemonChosen - 1).getHp() <= 0){
-                            System.out.println("Darn! " + t.getPokemon(pokemonChosen - 1).getName() + " is downed! Can't fight");
-                            break;
+                if( choice ==  1){
+                    int check = 0;
+                    for (int i = 0; i < t.getNumPokemon(); i++){
+                        if(t.getPokemon(i).getHp() <= 0){
+                            check++;
                         }
-                        System.out.println(attackingPokemon.getName() +" I CHOSE YOU!!!");
+                    }
+                    if(check == t.getNumPokemon()){
+                        System.out.println("\nShoot. All of my pokemons are dead! Gotta heal em up");
+                        break;
+                    }
+                    System.out.println("Choose a Pokemon: ");
+                    System.out.println(t.getPokemonList());
+                    pokemonChosen = CheckInput.getIntRange(1,t.getNumPokemon());
+                    Pokemon attackingPokemon = t.getPokemon(pokemonChosen - 1);
+                    if(t.getPokemon(pokemonChosen - 1).getHp() <= 0){
+                        System.out.println("Darn! " + t.getPokemon(pokemonChosen - 1).getName() + " is downed! Can't fight");
+                        break;
+                    }
+                    System.out.println(attackingPokemon.getName() +" I CHOSE YOU!!!\n");
 
-                        System.out.println(attackingPokemon.getAttackMenu());
-                        int attack = attackingPokemon.getNumAttackMenuItems();
+                    System.out.println(attackingPokemon.getAttackMenu());
+                    int attack = attackingPokemon.getNumAttackMenuItems();
 
-                        if(attack == 1){
-                            System.out.println(attackingPokemon.getBasicMenu());
-                            int num = attackingPokemon.getNumBasicMenuItems();
-                            System.out.println(attackingPokemon.basicAttack(wild,num));
-                        } else{
-                            System.out.println(attackingPokemon.getSpecialMenu());
-                            int num = attackingPokemon.getNumSpecialMenuItems();
-                            System.out.println(attackingPokemon.specialAttack(wild,num));
-                        }
+                    if(attack == 1){
+                        System.out.println(attackingPokemon.getBasicMenu());
+                        int num = attackingPokemon.getNumBasicMenuItems();
+                        System.out.println(attackingPokemon.basicAttack(wild,num));
+                    } else{
+                        System.out.println(attackingPokemon.getSpecialMenu());
+                        int num = attackingPokemon.getNumSpecialMenuItems();
+                        System.out.println(attackingPokemon.specialAttack(wild,num));
+                    }
 
-                        int wildAttack = (int) (Math.random() + 1) + 1;
-                        if(wildAttack == 1) {
-                            int wildNum = (int) (Math.random() + 2) + 1;
-                            System.out.println(wild.basicAttack(attackingPokemon, wildNum));
-                        }
-                        else {
-                            int wildNum = (int) (Math.random() + 2) + 1;
-                            System.out.println(wild.specialAttack(attackingPokemon, wildNum));
-                        }
-                       break;
-                    case 2:
+                    int wildAttack = (int) (Math.random() + 1) + 1;
+                    if(wildAttack == 1) {
+                        int wildNum = (int) (Math.random() + 2) + 1;
+                        System.out.println(wild.basicAttack(attackingPokemon, wildNum));
+                    }
+                    else {
+                        int wildNum = (int) (Math.random() + 2) + 1;
+                        System.out.println(wild.specialAttack(attackingPokemon, wildNum));
+                    }
+                } else if (choice == 2) {
+                    if (t.hasPotion()){
                         System.out.println("Choose a Pokemon to heal: ");
                         System.out.println(t.getPokemonList());
-                        pokemonChosen = CheckInput.getIntRange(1,t.getNumPokemon());
-                        t.usePotion(pokemonChosen - 1);
-                        break;
-                    case 3:
-                        System.out.println("Shake...Shake...Shake");
+                        System.out.println("Exit. 0");
+                        pokemonChosen = CheckInput.getIntRange(0,t.getNumPokemon());
+                        if (pokemonChosen == 0){
+                            System.out.println("Not now. Let save the potion for next time.\n");
+                        }else{
+                            t.usePotion(pokemonChosen - 1);
+                        }
+                    }else{
+                        System.out.println("Shoot! Outta potions. Must fight carefully!\n");
+                    }
+                } else if (choice == 3) {
+                    if (t.hasPokeball()){
                         if (t.catchPokemon(wild)){
                             System.out.println("You caught " + wild.getName());
+                            System.out.println("--" + wild.getName() + "-- is healed");
                             System.out.println(t.toString());
                             System.out.println(t.getPokemonList());
                             isTrainerAttacking = false;
                         } else {
                             System.out.println("Oh no! " + wild.getName() + " has escaped!");
                         }
-                        break;
-                    case 4:
-                        System.out.println("Shucks! Let's book it!");
-                        System.out.println(wild.getName() + " is running away as well!");
-                        isTrainerAttacking = false;
-                        break;
+                    }else{
+                        System.out.println("You kidding me!! Outta pokeballs. I might have to bail outta this one.");
+                    }
+                } else {
+                    System.out.println("Shucks! Let's book it!");
+                    System.out.println(wild.getName() + " is running away as well!");
+                    int randomDirection = (int) (Math.random() * 2) + 1;
+                    if(randomDirection == 1){
+                        if(t.getLocation().x + 1 == 5){
+                            t.goWest();
+                        }else{
+                            t.goEast();
+                        }
+                    } else {
+                        if(t.getLocation().y - 1 == -1){
+                            t.goSouth();
+                        }else{
+                            t.goNorth();
+                        }
+                    }
+                    isTrainerAttacking = false;
                 }
-                //end switch
             }
             //end while loop
         }//end of the trainer attack method
 
-
+    /**
+     * Responsible for hosting the shop
+     * It displays the player's stats so that they can make the right choice.
+     * -Pokeballs are $3
+     * -Potions are $5
+     * */
         public static void store (Trainer t){
         	final int priceOfPokeball = 3;
         	final int priceOfPotion = 5;
             boolean isTrainerShopping = true;
             while(isTrainerShopping){
-                System.out.println("Welcome to the Objects.Pokemon Center!");
+                System.out.println("Welcome to the Pokemon Center!");
                 System.out.println("What can I help you with?");
                 System.out.println(t.toString());
                 System.out.println("1. Buy Potion - $5");

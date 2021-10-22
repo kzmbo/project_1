@@ -20,7 +20,7 @@ public class Bulbasaur extends Pokemon implements Grass{
     int damage = (int)(Math.random()*3)+1;
     if(p instanceof Fire){
       double amplified = Pokemon.battleTable[2][0];
-      damage *= amplified;
+      damage *= amplified;;
     }
     else if(p instanceof Water){
       double amplified = Pokemon.battleTable[2][1];
@@ -47,15 +47,15 @@ public class Bulbasaur extends Pokemon implements Grass{
       damage *= amplified;
     }
     else if(p instanceof Water){
-      double amplified = Pokemon.battleTable[2][1];
+      double amplified = Pokemon.battleTable[2][0];
       damage *= amplified;
     }
     else{//p instanceof Grass
-      double amplified = Pokemon.battleTable[2][2];
+      double amplified = Pokemon.battleTable[2][0];
       damage *= amplified;
     }
     p.takeDamage(damage);
-    String userAttack = p.getName()+" is attacked by razor"+damage+" damage.";
+    String userAttack = p.getName()+" is attacked by razor "+damage+" damage.";
     return userAttack;
   }
   /**
@@ -78,7 +78,6 @@ public class Bulbasaur extends Pokemon implements Grass{
       double amplified = Pokemon.battleTable[2][2];
       damage *= amplified;
     }
-    p.takeDamage(damage);
     String userAttack = p.getName()+" is SLAMMED by a force of sunlight and takes "+damage+" damage.";
     return userAttack;
   }

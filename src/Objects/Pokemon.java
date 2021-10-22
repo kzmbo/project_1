@@ -69,7 +69,7 @@ public abstract class Pokemon extends Entity{
   @return: returning the attack menu
   */
   public String getAttackMenu(){
-    String attackMenu = "1. Basic Attack\n2. Special Attack";
+    String attackMenu = "1. Basic Attacks\n2. Special Attacks";
     return attackMenu;
   }
   /**

@@ -72,7 +72,7 @@ public class Trainer extends Entity {
      * @return true if the user have any potions. false if the user have 0 potions (or negative potions).
      * */
     public boolean hasPotion(){
-        if(potions > 0){
+        if(this.potions > 0){
             System.out.println("** I have " + potions + " potions. **");
             return true;
         }
@@ -103,7 +103,7 @@ public class Trainer extends Entity {
      * @return false if they have zero pokeball
      * */
     public boolean hasPokeball(){
-        if(pokeballs > 0) {
+        if(this.pokeballs > 0) {
             return true;
         }
         return false;
@@ -128,28 +128,23 @@ public class Trainer extends Entity {
      * @return true if a pokemon is captured.
      * */
     public boolean catchPokemon(Pokemon p){
-        if ((pokeballs - 1) == -1){
-            System.out.println("Shoot! I'm outta pokeballs");
-            return false;
-        }
-
         this.pokeballs -= 1;
-        if(p.getHp() <= 3){
+        if(p.getHp() <= 1){
             pokemon.add(p);
             p.heal();
             map.removeOppAtLoc(getLocation());
             return true;
-        }else if (p.getHp() > 3 && p.getHp() < 10){
+        }else if (p.getHp() > 1 && p.getHp() < 8){
             int chanceToCatch = (int) (Math.random() * 100) + 1;
-            if (chanceToCatch <= 75){
+            if (chanceToCatch <= 70){
                 pokemon.add(p);
                 p.heal();
                 map.removeOppAtLoc(getLocation());
                 return true;
             }
-        } else if (p.getHp() >= 10 && p.getHp() < 20){
+        } else if (p.getHp() >= 9 && p.getHp() < 20){
             int chanceToCatch = (int) (Math.random() * 100) + 1;
-            if (chanceToCatch <= 19){
+            if (chanceToCatch <= 30){
                 pokemon.add(p);
                 p.heal();
                 map.removeOppAtLoc(getLocation());
@@ -265,7 +260,8 @@ public class Trainer extends Entity {
      * @return a string of the trainer object. name, money, # of potion, and # of pokeballs.
      * */
     public String toString(){
-        return (getName() + ", $" +
+        return (getName() +
+                " HP: " + getHp() +"/" + getMaxHp() + ", $" +
                 money + ", " +
                 potions + " potions, " +
                 pokeballs + " pokeballs ");
