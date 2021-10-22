@@ -6,26 +6,42 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Aidan Tristen Angel
+ * Map Class sets up the Map for the Porgram
+ */
 
 public class Map implements Serializable {
 	private boolean next = false;
     private char [][] map;
     private boolean [][] revealed;
-
+/**
+ * Map creates the 2d array of the Map
+ */
     public Map() {
          this.map = new char[5][5];
          this.revealed = new boolean[5][5];
     }
 
-
+/**
+ * 
+ * @return returns the next map to be used
+ */
 	public boolean checkNextMap() {
 		return next;
 	}
-
+/**
+ * 
+ * @param next equates to the next map txt file to be use
+ */
 	public void setNextMap(Boolean next) {
 		this.next = next;
 	}
-    
+/**
+ *     
+ * @param areaNum acts as the identifier for which map txt file to use.
+ */
 	public void generateArea(int areaNum) {
 		File file = new File("src/Map/Area" + areaNum + ".txt");
 		Scanner in = null;
@@ -44,7 +60,11 @@ public class Map implements Serializable {
 		}
 
 	}
-	
+/**
+ * 	
+ * @param p returns the character of the location,
+ * @return returns the initial x cover of the location before its revelation
+ */
 	public char getCharAtLocation(Point p) {
 		try {
 			return map[(int) p.getY()][(int) p.getX()];
@@ -54,8 +74,8 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * first, it checks if a new map has been created. if so, reset the reveal array (or set it to false),
-	 * and print out the map with x except for shops and the starting point.
+	 * Checks if a new map has been created. if so, reset the reveal array (or set it to false),
+	 * prints out the map with x except for the cities  and the starting point.
 	 * */
 	public void displayMap(Point p) {
 		if(checkNextMap()){
@@ -92,7 +112,10 @@ public class Map implements Serializable {
 			System.out.println(" ----------- ");
 		}
 	}
-
+/**
+ * Finds the starting location of the map loaded
+ * @return the location in 2d array coordinates
+ */
 	public Point findStartLocation() {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
@@ -103,6 +126,11 @@ public class Map implements Serializable {
 		}
 		return null;
 	}
+	
+/**
+ * Finds the end location of the map loaded
+ * @return the location in 2d array coordinates
+ */
 	public Point findEndLocation() {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
@@ -113,11 +141,17 @@ public class Map implements Serializable {
 		}
 		return null;
 	}
-	
+/**
+ * 	
+ * @param p reveals the point chosen and set equal to true
+ */
 	public void reveal(Point p) {
 		revealed[(int) p.getY()][(int) p.getX()] = true;
 	}
-	
+/**
+ * 	
+ * @param p finds object from location point
+ */
 	public void removeOppAtLoc(Point p) {
 		map[(int) p.getY()][(int) p.getX()] = 'n';
 	}
