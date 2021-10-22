@@ -52,7 +52,6 @@ public abstract class Entity {
  * sets hp equal to MaxHp
  */
     public void heal(){
-        System.out.println("Healing");
         this.hp = maxHp;
     }
 /**
@@ -61,16 +60,26 @@ public abstract class Entity {
  */
     public void takeDamage(int d){
         if ((this.hp - d) <= 0 ){
-            this.hp = -1;
+            this.hp = 0;
         }else {
             this.hp -= d;
         }
     }
-/**
- * 
- * @return name of Entity
- */
+
+    /**
+     *
+     * @return name of Entity
+     */
     public String getName(){
         return this.name;
+    }
+
+
+/**
+ * 
+ * @return name of the entity and their hp
+ */
+    public String toStringName(){
+        return this.name + " HP: " + getHp() + "/" + getMaxHp();
     }
 }

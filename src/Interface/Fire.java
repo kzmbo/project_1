@@ -10,6 +10,7 @@ public interface Fire {
 
     /**
      Description: special attack number 1: ember
+     Only for fire types
      @param: this is the pokemon we are attacking
      Be sure to change the damage according to the pokemon.
      */
@@ -17,6 +18,7 @@ public interface Fire {
 
     /**
      Description: special attack number 2: fire blast
+     Only for fire types
      @param: this is the pokemon we are attacking
      Be sure to change the damage according to the pokemon.
      */
@@ -24,6 +26,7 @@ public interface Fire {
 
     /**
      Description: special attack number 3: fire punch
+     Only for fire types
      @param: this is the pokemon we are attacking
      Be sure to change the damage according to the pokemon.
      */
