@@ -295,7 +295,7 @@ public class Main {
         }//end of the trainer attack method
 
         /**
-         *Done by Aidan Tristen Angel
+         *Done by Aidan Tristen Angel & Alex Khem
          */
 
         public static void store (Trainer t){
