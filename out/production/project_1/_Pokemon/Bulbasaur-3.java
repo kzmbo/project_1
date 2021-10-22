@@ -14,15 +14,15 @@ public class Bulbasaur extends Pokemon implements Grass{
   public String vineWhip(Pokemon p){
     int damage = (int)(Math.random()*3)+1;
     if(p instanceof Fire){
-      double amplified = Pokemon.battleTable[3][0];
+      double amplified = Pokemon.battleTable[2][0];
       damage *= amplified;
     }
     else if(p instanceof Water){
-      double amplified = Pokemon.battleTable[3][1];
+      double amplified = Pokemon.battleTable[2][1];
       damage *= amplified;
     }
     else{//p instanceof Grass
-      double amplified = Pokemon.battleTable[3][2];
+      double amplified = Pokemon.battleTable[2][2];
       damage *= amplified;
     }
     p.takeDamage(damage);
@@ -38,15 +38,15 @@ public class Bulbasaur extends Pokemon implements Grass{
   public String razorLeaf(Pokemon p){
     int damage = (int)(Math.random()*4)+2;
     if(p instanceof Fire){
-      double amplified = Pokemon.battleTable[3][0];
+      double amplified = Pokemon.battleTable[2][0];
       damage *= amplified;
     }
     else if(p instanceof Water){
-      double amplified = Pokemon.battleTable[3][1];
+      double amplified = Pokemon.battleTable[2][1];
       damage *= amplified;
     }
     else{//p instanceof Grass
-      double amplified = Pokemon.battleTable[3][2];
+      double amplified = Pokemon.battleTable[2][2];
       damage *= amplified;
     }
     p.takeDamage(damage);
@@ -62,15 +62,15 @@ public class Bulbasaur extends Pokemon implements Grass{
   public String solarBeam(Pokemon p){
     int damage = (int)(Math.random()*5)+0;
     if(p instanceof Fire){
-      double amplified = Pokemon.battleTable[3][0];
+      double amplified = Pokemon.battleTable[2][0];
       damage *= amplified;
     }
     else if(p instanceof Water){
-      double amplified = Pokemon.battleTable[3][1];
+      double amplified = Pokemon.battleTable[2][1];
       damage *= amplified;
     }
     else{//p instanceof Grass
-      double amplified = Pokemon.battleTable[3][2];
+      double amplified = Pokemon.battleTable[2][2];
       damage *= amplified;
     }
     p.takeDamage(damage);
