@@ -7,6 +7,13 @@ import java.awt.*;
 
 
 public class Main {
+
+    /**
+     * Responsible for initializing the game.
+     * It does it by asking the user for their username.
+     * Secondly, the player choose their starting pokemon
+     * Lastly, a loop continues to run until the game is over, or if the user quits
+     * */
     public static void main(String arg[]){
         System.out.println("Prof. Oak: Hello there new trainer!");
         System.out.println("What's your name?");
@@ -35,11 +42,11 @@ public class Main {
             playerStartingPokemon = new Squirtle();
             player = new Trainer(name, playerStartingPokemon, currentMap);
         }
-
-        System.out.println(player.getPokemonList());
+        System.out.println("I choose you..." + playerStartingPokemon.getName() + "\n");
 
         boolean isGameRunning = true;
         while(isGameRunning){
+            System.out.println(player.toString());
             currentMap.displayMap(player.getLocation());
             int playerChoice = mainMenu();
             switch (playerChoice) {
@@ -64,6 +71,7 @@ public class Main {
             }//end switch
             currentMap.reveal(player.getLocation());
 
+            //if the game is still running, check what character the player is under.
             if(isGameRunning) {
                 if (currentChar == 'n') {
                     System.out.println("No encounter found");
@@ -118,7 +126,6 @@ public class Main {
                     } else if (selectEncounter == 12) {
                         System.out.println("It turns out its the Pokemon League Champion! they tell you they are on a stroll and ask you not to tell anyone they were there.");
                     }
-                    System.out.println(player.toString());
                     currentMap.removeOppAtLoc(player.getLocation());
                     if(player.getHp() <= 0){
                         System.out.println(player.getName() + " is dead with HP:" + player.getHp() + "/" + player.getMaxHp());
@@ -154,18 +161,14 @@ public class Main {
                         currentMap.setNextMap(true);
                     }
                 }
-                System.out.println("\n" + player.toString());
             }//end if statement
         }//end while loop
     }
 
-    /* mainMenu() will return...
-    *   north = 1
-    *   south = 2
-    *   east = 3
-    *   west = 4
-    *   quit game = 5
-    * */
+    /**
+     * Responsible for stating the main menu
+     * Remember! N.E.S.W = Never Eat Sour Watermelon (Clockwise)
+     * */
     public static int mainMenu() {
         System.out.println();
         System.out.println("Main Menu:");
@@ -198,6 +201,15 @@ public class Main {
         return 0;
     }
 
+    /**
+     * Responsible for choosing a random pokemon ai
+     * 1 - Oddish
+     * 2 - Charmander
+     * 3 - Bulbasaur
+     * 4 - Ponyta
+     * 5 - Staryu
+     * 6 - Squirtle
+     * */
         public static Pokemon chooseRandomPokemon() {
             int random = (int) (Math.random() * 6) + 1;
             Pokemon pokemonAI;
@@ -224,6 +236,26 @@ public class Main {
             return null;
         }
 
+
+    /**
+     * Responsible for running the battle.
+     * the basic menu
+     * 1 - fight
+     * 2 - use potions
+     * 3 - throw pokeball
+     * 4 - run away
+     *
+     * Under the fight menu, it has...
+     * 1 - Basic Attack
+     * 2 - Special Attack
+     *
+     * Under the basic attack, it has
+     * 1 - slam
+     * 2 - tackle
+     * 3 - punch
+     *
+     * Under the special attack, check the type of pokemon to see what they offer!
+     * */
         public static void trainerAttack(Trainer t, Pokemon wild){
             int pokemonChosen = 0;
             System.out.println();
@@ -324,16 +356,18 @@ public class Main {
                             t.goNorth();
                         }
                     }
-
-
                     isTrainerAttacking = false;
                 }
-
             }
             //end while loop
         }//end of the trainer attack method
 
-
+    /**
+     * Responsible for hosting the shop
+     * It displays the player's stats so that they can make the right choice.
+     * -Pokeballs are $3
+     * -Potions are $5
+     * */
         public static void store (Trainer t){
         	final int priceOfPokeball = 3;
         	final int priceOfPotion = 5;
