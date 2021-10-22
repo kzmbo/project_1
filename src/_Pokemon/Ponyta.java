@@ -2,7 +2,7 @@ package _Pokemon;
 
 import Controller.CheckInput;
 import Objects.Pokemon;
-import Interface.Fire;
+import Interface.*;
 
 /**
  Description: This is the fire pokemon Bulbasaur
@@ -23,7 +23,19 @@ public class Ponyta extends Pokemon implements Fire {
      */
     @Override
     public String ember(Pokemon p){
-        int damage = (int) (Math.random() * 5) + 0;
+        int damage = (int) (Math.random() * 4) + 0;
+        if(p instanceof Fire){
+            double amplified = Pokemon.battleTable[0][0];
+            damage *= amplified;
+        }
+        else if(p instanceof Water){
+            double amplified = Pokemon.battleTable[0][1];
+            damage *= amplified;
+        }
+        else{//p instanceof Grass
+            double amplified = Pokemon.battleTable[0][2];
+            damage *= amplified;
+        }
         p.takeDamage(damage);
         String userAttack = p.getName() + " is encased in EMBER and takes " + damage + " damage.";
         return userAttack;
@@ -36,7 +48,19 @@ public class Ponyta extends Pokemon implements Fire {
      */
     @Override
     public String fireBlast(Pokemon p) {
-        int damage = (int) (Math.random() * 6) + 2;
+        int damage = (int) (Math.random() * 5) + 2;
+        if(p instanceof Fire){
+            double amplified = Pokemon.battleTable[0][0];
+            damage *= amplified;
+        }
+        else if(p instanceof Water){
+            double amplified = Pokemon.battleTable[0][1];
+            damage *= amplified;
+        }
+        else{//p instanceof Grass
+            double amplified = Pokemon.battleTable[0][2];
+            damage *= amplified;
+        }
         p.takeDamage(damage);
         String userAttack = p.getName() + " got toasted by a FIRE BLAST and takes " + damage + " damage.";
         return userAttack;
@@ -49,7 +73,19 @@ public class Ponyta extends Pokemon implements Fire {
      */
     @Override
     public String firePunch(Pokemon p) {
-        int damage = (int) (Math.random() * 5) + 1;
+        int damage = (int) (Math.random() * 4) + 1;
+        if(p instanceof Fire){
+            double amplified = Pokemon.battleTable[0][0];
+            damage *= amplified;
+        }
+        else if(p instanceof Water){
+            double amplified = Pokemon.battleTable[0][1];
+            damage *= amplified;
+        }
+        else{//p instanceof Grass
+            double amplified = Pokemon.battleTable[0][2];
+            damage *= amplified;
+        }
         p.takeDamage(damage);
         String userAttack = p.getName() + " got served with a FIRE PUNCH and takes " + damage + " damage.";
         return userAttack;

@@ -1,6 +1,6 @@
 package _Pokemon;
 import Objects.Pokemon;
-import Interface.Grass;
+import Interface.*;
 import Controller.CheckInput;
 
 /**
@@ -18,8 +18,20 @@ Description: special attack number 1
   @Override
   public String vineWhip(Pokemon p){
     int damage = (int)(Math.random()*3)+1;
+    if(p instanceof Fire){
+      double amplified = Pokemon.battleTable[2][0];
+      damage *= amplified;
+    }
+    else if(p instanceof Water){
+      double amplified = Pokemon.battleTable[2][1];
+      damage *= amplified;
+    }
+    else{//p instanceof Grass
+      double amplified = Pokemon.battleTable[2][2];
+      damage *= amplified;
+    }
     p.takeDamage(damage);
-    String userAttack = p.getName()+" is WHIPPED and takes " + damage + " damage.";
+    String userAttack = p.getName()+" is WHIPPED and takes "+damage+" damage.";
     return userAttack;
   }
   /**
@@ -30,8 +42,20 @@ Description: special attack number 1
   @Override
   public String razorLeaf(Pokemon p){
     int damage = (int)(Math.random()*4)+2;
+    if(p instanceof Fire){
+      double amplified = Pokemon.battleTable[2][0];
+      damage *= amplified;
+    }
+    else if(p instanceof Water){
+      double amplified = Pokemon.battleTable[2][1];
+      damage *= amplified;
+    }
+    else{//p instanceof Grass
+      double amplified = Pokemon.battleTable[2][2];
+      damage *= amplified;
+    }
     p.takeDamage(damage);
-    String userAttack = p.getName()+" is attacked by razor " + damage + " damage.";
+    String userAttack = p.getName()+" is attacked by razor"+damage+" damage.";
     return userAttack;
   }
   @Override
@@ -41,9 +65,21 @@ Description: special attack number 1
   @return: returning a string that shows which pokemon was attacks and for how much damage
   */
   public String solarBeam(Pokemon p){
-    int damage = (int)(Math.random()*3)+0;
+    int damage = (int)(Math.random()*5)+0;
+    if(p instanceof Fire){
+      double amplified = Pokemon.battleTable[2][0];
+      damage *= amplified;
+    }
+    else if(p instanceof Water){
+      double amplified = Pokemon.battleTable[2][1];
+      damage *= amplified;
+    }
+    else{//p instanceof Grass
+      double amplified = Pokemon.battleTable[2][2];
+      damage *= amplified;
+    }
     p.takeDamage(damage);
-    String userAttack = p.getName()+" is SLAMMED by a force of sunlight and takes " + damage + " damage.";
+    String userAttack = p.getName()+" is SLAMMED by a force of sunlight and takes "+damage+" damage.";
     return userAttack;
   }
   /**
