@@ -7,15 +7,7 @@ import java.awt.*;
 
 
 public class Main {
-    static Trainer player;
-    static Pokemon playerStartingPokemon;
-    static Map currentMap = new Map();
-    static char currentChar;
-    static int currentMapIndex = 1;
-
     public static void main(String arg[]){
-
-
         System.out.println("Prof. Oak: Hello there new trainer!");
         System.out.println("What's your name?");
         String name = CheckInput.getString();
@@ -27,11 +19,15 @@ public class Main {
         System.out.println("3. Squirtle");
         int choice = CheckInput.getIntRange(1, 3);
 
-        //Map currentMap = new Map();
+        Trainer player;
+        Pokemon playerStartingPokemon;
+        Map currentMap = new Map();
+        char currentChar = 'a';
+        int currentMapIndex = 1;
+
         if (choice == 1) {
             playerStartingPokemon = new Charmander();
             player = new Trainer(name, playerStartingPokemon, currentMap);
-            //System.out.println(player.getPokemonList());
         } else if (choice == 2) {
             playerStartingPokemon = new Bulbasaur();
             player = new Trainer(name, playerStartingPokemon, currentMap);
@@ -68,67 +64,79 @@ public class Main {
             }//end switch
             currentMap.reveal(player.getLocation());
 
-            if(isGameRunning){
-                switch (currentChar){
-                    case 'n':
-                        System.out.println("No encounter found");
-                        break;
-                    case 'i':
-                        System.out.println("I found an item!");
-                        int selectRandomItem = (int) (Math.random() * 4) + 1;
-                        if( selectRandomItem <=  2){
-                            System.out.println("It's a potion");
-                            player.receivePotion();
+            if(isGameRunning) {
+                if (currentChar == 'n') {
+                    System.out.println("No encounter found");
+                } else if (currentChar == 'i') {
+                    System.out.println("I found an item!");
+                    int selectRandomItem = (int) (Math.random() * 4) + 1;
+                    if (selectRandomItem <= 2) {
+                        System.out.println("It's a potion");
+                        player.receivePotion();
+                    } else {
+                        System.out.println("It's a pokeball");
+                        player.receivePokeBall();
+                    }
+                    currentMap.removeOppAtLoc(player.getLocation());
+                } else if (currentChar == 'w') {
+                    trainerAttack(player, chooseRandomPokemon());
+                } else if (currentChar == 'p') {
+                    System.out.println("There's a stranger in the distance!");
+                    int selectEncounter = (int) (Math.random() * 12) + 1;
+                    if( selectEncounter ==  1){
+                        System.out.println("Hello there! the Poke Center is having a giveaway promotion! Here's a potion!");
+                        player.receivePotion();
+                    } else if (selectEncounter == 2) {
+                        System.out.println("Hello fellow trainer! Here, take this pokeball!");
+                        player.receivePokeBall();
+                    } else if (selectEncounter == 3) {
+                        System.out.println("Hello! I went to the gaming corner and got a ton of money! Here let me give you $10");
+                        player.receiveMoney(10);
+                    } else if (selectEncounter == 4) {
+                        System.out.println("Ahhhhhh!! The stranger assaulted me for no reason");
+                        player.takeDamage(10);
+                    } else if (selectEncounter == 5) {
+                        System.out.println("That's not a stranger! That's a herd of Tauros! they knocked you around.");
+                        player.takeDamage(5);
+                    } else if (selectEncounter == 6) {
+                        System.out.println("As you chat with the stranger, you hear in the distance 'TEAM ROCKET IS BLASTING OFF AGAIN!' those people never learn huh?");
+                    } else if (selectEncounter == 7) {
+                        System.out.println("It wasn't a stranger, it was a shiny pokemon! sadly it ran away before you could get close to catch it");
+                    } else if (selectEncounter == 8) {
+                        System.out.println("You approach the stranger, he seems to be asleep, there is a Jigglypuff on his lap holding a mic, best you walk away now.");
+                    } else if (selectEncounter == 9) {
+                        System.out.println("Its Professor Oak! he hands you some pokeballs to catch more pokemon.");
+                        player.receivePokeBall();
+                        player.receivePokeBall();
+                        player.receivePokeBall();
+                    } else if (selectEncounter == 10) {
+                        System.out.println("It turns out to the stranger was in fact an angry pokemon!");
+                        player.takeDamage(5);
+                    } else if (selectEncounter == 11) {
+                        System.out.println("It looks like the stranger is in a pokemon battle, you decide to watch, after the fight he notices you and gives you a potion for cheering her on.");
+                        player.receivePotion();
+                    } else if (selectEncounter == 12) {
+                        System.out.println("It turns out its the Pokemon League Champion! they tell you they are on a stroll and ask you not to tell anyone they were there.");
+                    }
+                    currentMap.removeOppAtLoc(player.getLocation());
+                } else if (currentChar == 'c') {
+                    store(player);
+                } else if (currentChar == 'f') {
+                    System.out.println("You have found a finish checkpoint!");
+                    System.out.println("Do you want to leave the current map?");
+                    boolean leaveMap = CheckInput.getYesNo();
+                    if (leaveMap) {
+                        if (currentMapIndex == 3) {
+                            currentMapIndex = 1;
                         } else {
-                            System.out.println("It's a pokeball");
-                            player.receivePokeBall();
+                            currentMapIndex += 1;
                         }
-                        currentMap.removeOppAtLoc(player.getLocation());
-                        break;
-                    case 'w':
-                        trainerAttack(player, chooseRandomPokemon());
-                        break;
-                    case 'p':
-                        System.out.println("There's a stranger in the distance!");
-                        int selectEncounter = (int) (Math.random() * 8) + 1;
-                        if( selectEncounter <=  2){
-                            System.out.println("Hello fellow trainer! Here's a potion!");
-                            player.receivePotion();
-                        } else if (selectEncounter > 2 && selectEncounter <= 4) {
-                            System.out.println("Hello fellow trainer! Here, take this a pokeball!");
-                            player.receivePokeBall();
-                        } else if (selectEncounter > 4 && selectEncounter <= 6) {
-                            System.out.println("Hello fellow trainer! Let me give you $10");
-                            player.receiveMoney(10);
-                        } else{
-                            System.out.println("Ahhhhhh!! The stranger assaulted me for no reason");
-                            player.takeDamage(10);
-                        }
-                        currentMap.removeOppAtLoc(player.getLocation());
-                        break;
-                    case 'c':
-                        store(player);
-                        break;
-                    case 'f':
-                        System.out.println("You have found a finish checkpoint!");
-                        System.out.println("Do you want to leave the current map?");
-                        boolean leaveMap = CheckInput.getYesNo();
-                        if(leaveMap) {
-                            if(currentMapIndex == 3){
-                                currentMapIndex = 1;
-                            } else{
-                                currentMapIndex += 1;
-                            }
-                            currentMap.generateArea(currentMapIndex);
-                            currentMap.setNextMap(true);
-                        }
-                        break;
+                        currentMap.generateArea(currentMapIndex);
+                        currentMap.setNextMap(true);
+                    }
                 }
-                //end switch
-            }
-            //end if statement
-        }
-        //end while loop
+            }//end if statement
+        }//end while loop
     }
 
     /* mainMenu() will return...
@@ -255,7 +263,6 @@ public class Main {
                             System.out.println("You caught " + wild.getName());
                             System.out.println(t.toString());
                             System.out.println(t.getPokemonList());
-                            currentMap.removeOppAtLoc(t.getLocation());
                             isTrainerAttacking = false;
                         } else {
                             System.out.println("Oh no! " + wild.getName() + " has escaped!");

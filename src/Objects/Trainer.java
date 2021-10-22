@@ -137,12 +137,14 @@ public class Trainer extends Entity {
         if(p.getHp() <= 3){
             pokemon.add(p);
             p.heal();
+            map.removeOppAtLoc(getLocation());
             return true;
         }else if (p.getHp() > 3 && p.getHp() < 10){
             int chanceToCatch = (int) (Math.random() * 100) + 1;
             if (chanceToCatch <= 75){
                 pokemon.add(p);
                 p.heal();
+                map.removeOppAtLoc(getLocation());
                 return true;
             }
         } else if (p.getHp() >= 10 && p.getHp() < 20){
@@ -150,6 +152,7 @@ public class Trainer extends Entity {
             if (chanceToCatch <= 19){
                 pokemon.add(p);
                 p.heal();
+                map.removeOppAtLoc(getLocation());
                 return true;
             }
         }
